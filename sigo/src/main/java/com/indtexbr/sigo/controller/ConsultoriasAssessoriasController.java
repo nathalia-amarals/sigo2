@@ -6,35 +6,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-@RestController
-@RequestMapping("/consultassessor")
+@RestController("/consultassessor")
 public class ConsultoriasAssessoriasController {
 
     public static final String HTTP_LOCALHOST_8080 = "http://localhost:8080";
     @Autowired
     RestTemplate restTemplate;
 
-    @GetMapping
-    @RequestMapping("/empresa/{id}")
+    @GetMapping("/empresa/{id}")
     public ResponseEntity retornaEmpresa(@RequestParam String id){
         return restTemplate.getForEntity(HTTP_LOCALHOST_8080 + id, ResponseEntity.class);
     }
 
-    @PostMapping
-    @RequestMapping("/empresa")
+    @PostMapping("/empresa")
     public ResponseEntity cadastraEmpresa(@RequestBody String body){
         return restTemplate.postForEntity(HTTP_LOCALHOST_8080, body, ResponseEntity.class);
     }
 
-    @PutMapping
-    @RequestMapping("/empresa")
+    @PutMapping("/empresa")
     public ResponseEntity atualizaEmpresa(@RequestBody String body){
         restTemplate.put(HTTP_LOCALHOST_8080, body);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    @RequestMapping("/empresa")
+    @DeleteMapping("/empresa")
     public ResponseEntity deletaEmpresa(@RequestParam String id){
         try{
             restTemplate.delete(HTTP_LOCALHOST_8080 + id);
@@ -45,27 +40,23 @@ public class ConsultoriasAssessoriasController {
         }
     }
 
-    @GetMapping
-    @RequestMapping("/contrato/{id}")
+    @GetMapping("/contrato/{id}")
     public ResponseEntity retornaContrato(@RequestParam String id){
         return restTemplate.getForEntity(HTTP_LOCALHOST_8080+id, ResponseEntity.class);
     }
 
-    @PostMapping
-    @RequestMapping("/contrato")
+    @PostMapping("/contrato")
     public ResponseEntity cadastraContrato(@RequestBody String body){
         return restTemplate.postForEntity(HTTP_LOCALHOST_8080, body, ResponseEntity.class);
     }
 
-    @PutMapping
-    @RequestMapping("/contrato")
+    @PutMapping("/contrato")
     public ResponseEntity atualizaContrato(@RequestBody String body){
         restTemplate.put(HTTP_LOCALHOST_8080, body);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    @RequestMapping("/contrato")
+    @DeleteMapping("/contrato")
     public ResponseEntity deletaContrato(@RequestParam String id){
         try{
             restTemplate.delete(HTTP_LOCALHOST_8080 + id);
