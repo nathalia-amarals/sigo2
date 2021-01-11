@@ -24,7 +24,7 @@ public class TokenService {
     public String gerarToken(Authentication authentication) {
         Usuario logado = (Usuario) authentication.getPrincipal();
         Date hoje = new Date();
-        Date dataExpiracao = new Date((hoje.getTime() + 82000000));
+        Date dataExpiracao = new Date((hoje.getTime() + 86400000));
 
         return Jwts.builder()
                 .setIssuer("API")

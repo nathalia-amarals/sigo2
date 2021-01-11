@@ -14,10 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
+public class SecurityConfigurations extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private ServicoAutenticacao servicoAutenticacao;
@@ -50,6 +52,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/autenticacao/criar").permitAll()
                 .antMatchers(HttpMethod.GET, "/consultassessor/empresa/*").permitAll()
                 .anyRequest().authenticated()
+                .and().cors()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService,usuarioRepository), UsernamePasswordAuthenticationFilter.class);
@@ -58,4 +61,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 //    public static void main(String[] args) {
 //        System.out.println(new BCryptPasswordEncoder().encode("1234"));
 //    }
+
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8080")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+
+    }
 }

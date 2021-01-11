@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/autenticacao")
 public class AutenticacaoController {
@@ -39,7 +42,9 @@ public class AutenticacaoController {
         try{
             Authentication authentication = authenticationManager.authenticate(dadosLogin);
             String token = tokenService.gerarToken(authentication);
-            return ResponseEntity.ok(token);
+            Map<String,String> response = new HashMap<String,String>();
+            response.put("token", token);
+            return ResponseEntity.ok(response);
         } catch (AuthenticationException e){
 
             System.out.println(e);
