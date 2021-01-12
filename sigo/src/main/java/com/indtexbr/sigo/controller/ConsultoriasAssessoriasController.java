@@ -68,12 +68,20 @@ public class ConsultoriasAssessoriasController {
 
     @PostMapping("/contrato")
     public ResponseEntity cadastraContrato(@RequestBody String body){
-        return restTemplate.postForEntity(HTTP_LOCALHOST_3002 + "contrato/", body, String.class);
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", "application/json");
+
+        HttpEntity<String> request = new HttpEntity<String>(body, headers);
+        return restTemplate.postForEntity(HTTP_LOCALHOST_3002 + "contrato/", request, String.class);
     }
 
     @PutMapping("/contrato")
     public ResponseEntity atualizaContrato(@RequestBody String body){
-        restTemplate.put(HTTP_LOCALHOST_3002 + "contrato/", body);
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", "application/json");
+
+        HttpEntity<String> request = new HttpEntity<String>(body, headers);
+        restTemplate.put(HTTP_LOCALHOST_3002 + "contrato/", request);
         return new ResponseEntity(HttpStatus.OK);
     }
 
