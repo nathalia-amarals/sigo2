@@ -47,30 +47,31 @@ public class GestaoNormasController {
         body.add("name",name);
         body.add("obs",obs);
 
-        convertedFile.delete();
-
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Content-Type", "multipart/form-data;");
 
         HttpEntity<MultiValueMap<String,Object>> request = new HttpEntity<>(body, headers);
+        ResponseEntity responseEntity = restTemplate.postForEntity(HTTP_LOCALHOST_3003, request, String.class);
+        convertedFile.delete();
+        return responseEntity;
 
-        return restTemplate.postForEntity(HTTP_LOCALHOST_3003, request, String.class);
     }
 
     @PutMapping
     public ResponseEntity atualizaNorma(@RequestParam ("id") String id,
-                                        @RequestParam ("file") MultipartFile file,
-                                        @RequestParam ("name") String name,
-                                        @RequestParam ("obs") String obs) throws IOException {
-        File convertedFile = convert(file);
-
+                                        @RequestParam (name = "file", required = false) MultipartFile file,
+                                        @RequestParam (name = "name", required = false) String name,
+                                        @RequestParam (name = "obs", required = false) String obs) throws IOException {
+        File convertedFile = null;
         MultiValueMap<String, Object> body
                 = new LinkedMultiValueMap<>();
-        body.add("file",new FileSystemResource(convertedFile));
+        body.add("id", id);
+        if(file != null)
+        {   convertedFile = convert(file);
+            body.add("file",new FileSystemResource(convertedFile));
+        }
         body.add("name",name);
         body.add("obs",obs);
-
-        convertedFile.delete();
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Content-Type", "multipart/form-data;");
@@ -78,6 +79,11 @@ public class GestaoNormasController {
         HttpEntity<MultiValueMap<String,Object>> request = new HttpEntity<>(body, headers);
 
         restTemplate.put(HTTP_LOCALHOST_3003, request, String.class);
+        if(convertedFile != null)
+        {
+            convertedFile.delete();
+        }
+
         return new ResponseEntity(HttpStatus.OK);
     }
 
