@@ -34,7 +34,7 @@ public class GestaoNormasController {
         return restTemplate.getForEntity(HTTP_LOCALHOST_3003 +id, ResponseEntity.class);
     }
 
-    @PostMapping//(consumes = { "multipart/form-data" })
+    @PostMapping
     public ResponseEntity cadastraNorma(@RequestParam ("file") MultipartFile file,
                                         @RequestParam ("name") String name,
                                         @RequestParam ("obs") String obs) throws IOException {
@@ -52,19 +52,32 @@ public class GestaoNormasController {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Content-Type", "multipart/form-data;");
 
-//        Norma body = new Norma();
-//        body.setData(file.getBytes());
-//        body.setName(name);
-//        body.setObs(obs);
-
         HttpEntity<MultiValueMap<String,Object>> request = new HttpEntity<>(body, headers);
 
         return restTemplate.postForEntity(HTTP_LOCALHOST_3003, request, String.class);
     }
 
     @PutMapping
-    public ResponseEntity atualizaNorma(@RequestBody String body){
-        restTemplate.put(HTTP_LOCALHOST_3003, body);
+    public ResponseEntity atualizaNorma(@RequestParam ("id") String id,
+                                        @RequestParam ("file") MultipartFile file,
+                                        @RequestParam ("name") String name,
+                                        @RequestParam ("obs") String obs) throws IOException {
+        File convertedFile = convert(file);
+
+        MultiValueMap<String, Object> body
+                = new LinkedMultiValueMap<>();
+        body.add("file",new FileSystemResource(convertedFile));
+        body.add("name",name);
+        body.add("obs",obs);
+
+        convertedFile.delete();
+
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", "multipart/form-data;");
+
+        HttpEntity<MultiValueMap<String,Object>> request = new HttpEntity<>(body, headers);
+
+        restTemplate.put(HTTP_LOCALHOST_3003, request, String.class);
         return new ResponseEntity(HttpStatus.OK);
     }
 
