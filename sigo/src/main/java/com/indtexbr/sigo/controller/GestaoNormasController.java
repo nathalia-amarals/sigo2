@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,7 +19,7 @@ import java.io.IOException;
 @RequestMapping("/gestaonormas")
 public class GestaoNormasController {
 
-    public static final String HTTP_LOCALHOST_3003 = "http://localhost:3003/gestaonormas";
+    public static final String HTTP_LOCALHOST_3003 = "http://localhost:3003/gestaonormas/";
 
     @Autowired
     RestTemplate restTemplate;
@@ -29,7 +30,7 @@ public class GestaoNormasController {
     }
 
     @GetMapping
-    @RequestMapping({"id"})
+    @RequestMapping("{id}")
     public ResponseEntity retornaNorma(@RequestParam String id){
         return restTemplate.getForEntity(HTTP_LOCALHOST_3003 +id, ResponseEntity.class);
     }
@@ -87,8 +88,8 @@ public class GestaoNormasController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity deletaNorma(@RequestParam String id){
+    @DeleteMapping("{id}")
+    public ResponseEntity deletaNorma(@PathVariable("id") String id){
         try{
             restTemplate.delete(HTTP_LOCALHOST_3003 + id);
             return new ResponseEntity(HttpStatus.OK);
