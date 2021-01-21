@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,7 +30,7 @@ public class GestaoNormasController {
 
     @GetMapping
     @RequestMapping("{id}")
-    public ResponseEntity retornaNorma(@RequestParam String id){
+    public ResponseEntity retornaNorma(@PathVariable("id") String id){
         return restTemplate.getForEntity(HTTP_LOCALHOST_3003 +id, ResponseEntity.class);
     }
 
