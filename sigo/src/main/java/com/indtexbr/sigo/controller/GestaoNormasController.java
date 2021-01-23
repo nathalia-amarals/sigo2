@@ -19,6 +19,7 @@ import java.io.IOException;
 public class GestaoNormasController {
 
     public static final String HTTP_LOCALHOST_3003 = "http://localhost:3003/gestaonormas/";
+    public static final String PLANEJA = "planeja/";
 
     @Autowired
     RestTemplate restTemplate;
@@ -28,13 +29,12 @@ public class GestaoNormasController {
         return restTemplate.getForEntity(HTTP_LOCALHOST_3003, ResponseEntity.class);
     }
 
-    @GetMapping
-    @RequestMapping("{id}")
+    @GetMapping("norma/{id}")
     public ResponseEntity retornaNorma(@PathVariable("id") String id){
         return restTemplate.getForEntity(HTTP_LOCALHOST_3003 +id, ResponseEntity.class);
     }
 
-    @PostMapping
+    @PostMapping("norma")
     public ResponseEntity cadastraNorma(@RequestParam ("file") MultipartFile file,
                                         @RequestParam ("name") String name,
                                         @RequestParam ("obs") String obs) throws IOException {
@@ -57,7 +57,7 @@ public class GestaoNormasController {
 
     }
 
-    @PutMapping
+    @PutMapping("norma")
     public ResponseEntity atualizaNorma(@RequestParam ("id") String id,
                                         @RequestParam (name = "file", required = false) MultipartFile file,
                                         @RequestParam (name = "name", required = false) String name,
@@ -87,10 +87,52 @@ public class GestaoNormasController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("norma/{id}")
     public ResponseEntity deletaNorma(@PathVariable("id") String id){
         try{
             restTemplate.delete(HTTP_LOCALHOST_3003 + id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e){
+
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping
+    @RequestMapping("planeja/{id}")
+    public ResponseEntity retornaPlanejamento(@PathVariable("id") Long id){
+        return restTemplate.getForEntity(HTTP_LOCALHOST_3003 + PLANEJA +id, String.class);
+    }
+
+    @PostMapping("planeja")
+    public ResponseEntity cadastraPlanejamento(@RequestBody String body) throws IOException {
+
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", "application/json;");
+
+        HttpEntity<String> request = new HttpEntity<>(body, headers);
+        ResponseEntity responseEntity = restTemplate.postForEntity(HTTP_LOCALHOST_3003 + PLANEJA, request, String.class);
+        return responseEntity;
+
+    }
+
+    @PutMapping("planeja")
+    public ResponseEntity atualizaPlanejamento(@RequestBody String body) throws IOException {
+
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", "application/json;");
+
+        HttpEntity<String> request = new HttpEntity<>(body, headers);
+
+        restTemplate.put(HTTP_LOCALHOST_3003 + PLANEJA, request, String.class);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("planeja/{id}")
+    public ResponseEntity deletaPlanejamento(@PathVariable("id") String id){
+        try{
+            restTemplate.delete(HTTP_LOCALHOST_3003 + PLANEJA + id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
 

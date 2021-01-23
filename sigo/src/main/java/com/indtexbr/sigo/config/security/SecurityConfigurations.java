@@ -50,7 +50,6 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter impleme
                 .antMatchers(HttpMethod.POST, "/autenticacao").permitAll()
                 .antMatchers(HttpMethod.POST, "/autenticacao/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/autenticacao/criar").permitAll()
-                .antMatchers(HttpMethod.GET, "/consultassessor/empresa/*").permitAll()
                 .anyRequest().authenticated()
                 .and().cors()
                 .and().csrf().disable()
