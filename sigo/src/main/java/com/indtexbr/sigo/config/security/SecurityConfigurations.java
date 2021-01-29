@@ -50,6 +50,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter impleme
                 .antMatchers(HttpMethod.POST, "/autenticacao").permitAll()
                 .antMatchers(HttpMethod.POST, "/autenticacao/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/autenticacao/criar").permitAll()
+                .antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and().cors()
                 .and().csrf().disable()

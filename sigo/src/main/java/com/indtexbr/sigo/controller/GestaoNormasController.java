@@ -20,6 +20,7 @@ public class GestaoNormasController {
 
     public static final String HTTP_LOCALHOST_3003 = "http://localhost:3003/gestaonormas/";
     public static final String PLANEJA = "planeja/";
+    public static final String NORMA = "norma/";
 
     @Autowired
     RestTemplate restTemplate;
@@ -31,7 +32,7 @@ public class GestaoNormasController {
 
     @GetMapping("norma/{id}")
     public ResponseEntity retornaNorma(@PathVariable("id") String id){
-        return restTemplate.getForEntity(HTTP_LOCALHOST_3003 +id, ResponseEntity.class);
+        return restTemplate.getForEntity(HTTP_LOCALHOST_3003 + NORMA +id, String.class);
     }
 
     @PostMapping("norma")
@@ -51,7 +52,7 @@ public class GestaoNormasController {
         headers.add("Content-Type", "multipart/form-data;");
 
         HttpEntity<MultiValueMap<String,Object>> request = new HttpEntity<>(body, headers);
-        ResponseEntity responseEntity = restTemplate.postForEntity(HTTP_LOCALHOST_3003, request, String.class);
+        ResponseEntity responseEntity = restTemplate.postForEntity(HTTP_LOCALHOST_3003 + NORMA, request, String.class);
         convertedFile.delete();
         return responseEntity;
 
@@ -78,7 +79,7 @@ public class GestaoNormasController {
 
         HttpEntity<MultiValueMap<String,Object>> request = new HttpEntity<>(body, headers);
 
-        restTemplate.put(HTTP_LOCALHOST_3003, request, String.class);
+        restTemplate.put(HTTP_LOCALHOST_3003 + NORMA, request, String.class);
         if(convertedFile != null)
         {
             convertedFile.delete();
@@ -90,7 +91,7 @@ public class GestaoNormasController {
     @DeleteMapping("norma/{id}")
     public ResponseEntity deletaNorma(@PathVariable("id") String id){
         try{
-            restTemplate.delete(HTTP_LOCALHOST_3003 + id);
+            restTemplate.delete(HTTP_LOCALHOST_3003 + NORMA + id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
 
