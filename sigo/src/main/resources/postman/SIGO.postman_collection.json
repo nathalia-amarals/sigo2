@@ -1,0 +1,706 @@
+{
+	"info": {
+		"_postman_id": "5dd6d9d3-8ec6-4039-8b24-b31dad66bf5e",
+		"name": "SIGO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gestão de Normas",
+			"item": [
+				{
+					"name": "Cadastra Norma",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"ISO9004\",\r\n    \"obs\" : \"Responsabilidade Ambiental\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/gestaonormas/cadastranorma/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gestaonormas",
+								"cadastranorma",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastra Norma - Com Arquivo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Nathália/Downloads/download.jfif"
+								},
+								{
+									"key": "body",
+									"value": "{\n    \"name\" : \"ISO9004\",\n    \"obs\" : \"Responsabilidade Ambiental\"\n}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "obs",
+									"value": "test2",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/gestaonormas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaonormas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza Norma - Com Arquivo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Nathália/Downloads/anotacoesSpring.txt",
+									"disabled": true
+								},
+								{
+									"key": "body",
+									"value": "{\n    \"name\" : \"ISO9004\",\n    \"obs\" : \"Responsabilidade Ambiental\"\n}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "testa",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "obs",
+									"value": "test13",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/gestaonormas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaonormas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria Planejamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeDoPlan\" : \"Planejamento de melhoria de resíduos #1\",\r\n    \"planoDeAcao\" : \"\",\r\n    \"etapaData\" :{\r\n        \"01-22-2021\" : \"Limpar rio\",\r\n        \"02-22-2021\" : \"Mudar equipamentos\",\r\n        \"03-22-2021\" : \"Medir poluição água\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/gestaonormas/planeja",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaonormas",
+								"planeja"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza Planejamento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 8,\r\n    \"nomeDoPlan\" : \"Planejamento de melhoria de resíduos #1\",\r\n    \"planoDeAcao\" : \"\",\r\n    \"etapaData\" :{\r\n        \"01-22-2021\" : \"Limpar rio\",\r\n        \"02-22-2021\" : \"Mudar equipamentos\",\r\n        \"03-22-2021\" : \"Medir poluição água\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/gestaonormas/planeja",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaonormas",
+								"planeja"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Carrega Planejamento",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/gestaonormas/planeja/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaonormas",
+								"planeja",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultorias e Assessorias",
+			"item": [
+				{
+					"name": "Consulta Contrato",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8080/consultassesso/1234",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultassesso",
+								"1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria Contrato",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 12345,\r\n    \"idEmpresa\" : 10001,\r\n    \"valor\" : 312947.67,\r\n    \"descricao\" : \"vai planeta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/consultassesso",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultassesso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Altera Contrato",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1234,\r\n    \"idEmpresa\" : 10007,\r\n    \"valor\" : 534689.87,\r\n    \"descricao\" : \"vai planeta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/consultassesso",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultassesso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastra Empresa",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var authorization = \"Bearer \" + pm.globals.get(\"token\");\r",
+									"pm.globals.set(\"Authorization\", authorization);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"1234568\", \r\n    \"razaoSocial\": \"Fibras\",\r\n    \"cnpj\": \"1234324/32498\",\r\n    \"areaDeAtuacao\": \"Fibras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/consultassessor/empresa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"consultassessor",
+								"empresa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleta Empresa",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/consultassessor/empresa/2345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"consultassessor",
+								"empresa",
+								"2345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Contrato",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"239084\",\r\n    \"idEmpresa\" : \"56781234\",\r\n    \"valor\" : \"371289.87\",\r\n    \"descricao\" : \"Prestação de Serviços\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/consultassessor/contrato",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"consultassessor",
+								"contrato"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gestão Processo Industrial",
+			"item": [
+				{
+					"name": "Cria Produto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"14689\",\r\n    \"nome\" : \"Tecido Algodão\",\r\n    \"referencia\" : \"237493\",\r\n    \"altura\" : 2,\r\n    \"largura\" : 3,\r\n    \"composicao\" : \"Algodão\",\r\n    \"cor\" : \"vermelho\",\r\n    \"status\" : \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/gestaoprocind",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gestaoprocind"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Produto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"14689\",\r\n    \"nome\" : \"Tecido Algodão\",\r\n    \"referencia\" : \"237493\",\r\n    \"altura\" : 2,\r\n    \"largura\" : 3,\r\n    \"composicao\" : \"Algodão\",\r\n    \"cor\" : \"vermelho\",\r\n    \"status\" : \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/gestaoprocind?id=14689",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gestaoprocind"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "14689"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria Produto 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"12345\",\r\n    \"nome\" : \"tecido sarja\",\r\n    \"referencia\" : \"jkhasdoi\",\r\n    \"altura\" : 1,\r\n    \"largura\" : 10,\r\n    \"composicao\" : \"algodão\",\r\n    \"cor\" : \"vinho\",\r\n    \"estado\" : \"Processamento\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/gestaoprocind",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaoprocind"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza Nome Produto 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"12345\",\r\n    \"nome\" : \"tecido fleece\",\r\n    \"referencia\" : \"\",\r\n    \"altura\" : 0,\r\n    \"largura\" : 0,\r\n    \"composicao\" : \"\",\r\n    \"cor\" : \"\",\r\n    \"estado\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/gestaoprocind",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"gestaoprocind"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticacao",
+			"item": [
+				{
+					"name": "Autenticacao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.globals.set(\"token\", jsonData.token);\r",
+									"pm.globals.set(\"Authorization\",\"Bearer \"+ jsonData.token)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"nat8\",\r\n    \"senha\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/autenticacao/autenticar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"autenticacao",
+								"autenticar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticacao Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.globals.set(\"token\", jsonData.token);\r",
+									"pm.globals.set(\"Authorization\",\"Bearer \"+ jsonData.token)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"nat8\",\r\n    \"senha\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/autenticacao/autenticar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"autenticacao",
+								"autenticar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
