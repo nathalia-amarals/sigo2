@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+
 @SpringBootApplication
 public class SigoApplication extends SpringBootServletInitializer {
 
@@ -23,7 +25,10 @@ public class SigoApplication extends SpringBootServletInitializer {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
+		return builder
+				.setConnectTimeout(Duration.ofMillis(300000))
+				.setReadTimeout(Duration.ofMillis(300000))
+				.build();
 	}
 
 	@Bean public BCryptPasswordEncoder bCryptPasswordEncoder() {

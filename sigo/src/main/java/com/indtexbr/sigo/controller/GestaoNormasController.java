@@ -1,6 +1,8 @@
 package com.indtexbr.sigo.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,12 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/gestaonormas")
+@Slf4j
 public class GestaoNormasController {
 
-    public static final String HTTP_LOCALHOST_3003 = "http://localhost:3003/gestaonormas/";
+    @Value("${services.genormas.url}")
+    public String HTTP_LOCALHOST_3003;
+
     public static final String PLANEJA = "planeja/";
     public static final String NORMA = "norma/";
 
@@ -112,6 +117,11 @@ public class GestaoNormasController {
         headers.add("Content-Type", "application/json;");
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
+
+        log.info("logging GestaoNormasController: " + HTTP_LOCALHOST_3003);
+        log.info("payload: "+ body);
+        log.info("request: "+ request.getBody());
+
         ResponseEntity responseEntity = restTemplate.postForEntity(HTTP_LOCALHOST_3003 + PLANEJA, request, String.class);
         return responseEntity;
 
@@ -136,7 +146,11 @@ public class GestaoNormasController {
             restTemplate.delete(HTTP_LOCALHOST_3003 + PLANEJA + id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e){
-
+            log.info("Exception sigo: " + e);
+            if(e.toString().contains("nomeDoPlan"))
+            {
+                return new ResponseEntity(HttpStatus.OK);
+            }
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

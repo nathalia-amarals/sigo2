@@ -5,6 +5,8 @@ LABEL MAINTAINER=nathalia_amaral
 
 EXPOSE 3000
 
+RUN sed -i 's/port="8080"/port="3000"/' ${CATALINA_HOME}/conf/server.xml
+
 # COPY path-to-your-application-war path-to-webapps-in-docker-tomcat
 ADD /target/sigo.war /usr/local/tomcat/webapps/
 
